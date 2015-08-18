@@ -2,6 +2,8 @@ Author: Willem Wybo
 Date: 18/08/2015
 Place: BBP, Geneva
 
+Code to reproduce the figures for the paper "A sparse reformulation of the Green's function formalism allows efficient simulations of morphological neuron models"
+
 Dependencies:
 python 2.7
 numpy 1.9.1
