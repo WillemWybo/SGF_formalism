@@ -758,12 +758,6 @@ class integratorneuron:
                 x.feedSpikes(spikeIDs)
                 x.advance(V_m[m,l-1] + self.E_eq[m,0], dt)
                 g_m[m,l], c_m[m,l] = x.get_current_part(V_m[m,l-1] + self.E_eq[m,0])
-                # if k*dt > 200. and k*dt < 201: print 'cm1 = ', g_m[m,l]*V_m[m,l-1] + c_m[m,l]     
-                # c_m[m,l] = x.getCurrent(V_m[m,l-1] + self.E_eq[m,0])
-                # if k*dt > 200. and k*dt < 201: print 'cm2 = ', c_m[m,l]     
-
-            # if k*dt > 200. and k*dt < 205.:
-            #     print g_m[:,l], c_m[:,l]
 
             mat_aux = np.identity(self.numPoints) - H0 - np.diag(F0 * g_m[:,l])
 
@@ -780,8 +774,7 @@ class integratorneuron:
                 else:
                     K_vect[key[0]] +=   np.sum(V_m[key[1], l-K:l] * H1_K[key][::-1]) + \
                                         np.sum(y_sv['V'][y2v[key]] * P4['V'][y2v[key]]).real
-            # K_vect += F0 * (g_m[m,l]*V_m[m,l-1] + c_m[m,l])  
-            K_vect += F0 * c_m[m,l]
+            K_vect += F0 * c_m[:,l]
 
             V_m[:,l] = la.solve(mat_aux, K_vect)
             I_m[:,l] = g_m[:,l] * V_m[:,l] + c_m[:,l]
